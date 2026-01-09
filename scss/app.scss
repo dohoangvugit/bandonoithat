@@ -1,9 +1,12 @@
 @import 'var';
 
-h1{
-    color: $font-red;
+.icon i {
+  transition: all 0.3s ease;
 }
 
-.nav-item {
-  margin-right: 16px;
+.icon:hover i {
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;          
+  animation: fa-beat 1s infinite;
 }
+
