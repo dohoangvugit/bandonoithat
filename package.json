@@ -1,0 +1,22 @@
+{
+  "name": "hocmoingay",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon test.js",
+    "sass":"sass -w scss/app.scss public/css/app.css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^25.0.3",
+    "nodemon": "^3.1.11",
+    "sass": "^1.97.2"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "express-handlebars": "^8.0.1"
+  }
+}
