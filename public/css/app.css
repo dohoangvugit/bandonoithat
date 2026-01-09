@@ -8,4 +8,19 @@
   animation: fa-beat 1s infinite;
 }
 
+.icon.dropdown:hover > .dropdown-menu {
+  display: block;
+  margin-top: 0;
+}
+
+.dropdown-item:active {
+  background-color: #e5e5e5;
+}
+
+.icon.dropdown .dropdown-menu {
+  right: 0;
+  left: auto;
+  max-width: calc(100vw - 1rem);
+}
+
 /*# sourceMappingURL=app.css.map */
