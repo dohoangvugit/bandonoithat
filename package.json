@@ -4,7 +4,7 @@
   "main": "app.js",
   "scripts": {
     "dev": "nodemon test.js",
-    "sass":"sass -w scss/app.scss public/css/app.css"
+    "sass": "sass -w scss/app.scss public/css/app.css"
   },
   "keywords": [],
   "author": "",
