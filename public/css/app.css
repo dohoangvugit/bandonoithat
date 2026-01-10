@@ -1,9 +1,19 @@
-h1 {
-  color: rgb(192, 51, 51);
-}
-
 .nav-item {
   margin-right: 16px;
+}
+
+.nav-link {
+  color: black;
+}
+
+.dropdown-item {
+  color: black;
+}
+
+.border {
+  border-bottom: none;
+  border-left: none;
+  border-top: none;
 }
 
 /*# sourceMappingURL=app.css.map */

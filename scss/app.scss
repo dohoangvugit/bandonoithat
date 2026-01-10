@@ -1,9 +1,25 @@
-@import 'var';
-
-h1{
-    color: $font-red;
-}
+@use 'var' as *;
 
 .nav-item {
   margin-right: 16px;
 }
+
+.nav-link{
+  color:black;
+}
+
+.btn{
+  // background-color: $dropdown-bg;
+}
+
+.dropdown-item{
+  color:black;
+}
+
+.border{
+  border-bottom: none;
+  border-left: none;
+  border-top: none;
+}
+
+
