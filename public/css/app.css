@@ -23,4 +23,18 @@
   max-width: calc(100vw - 1rem);
 }
 
+.nav-link {
+  color: black;
+}
+
+.dropdown-item {
+  color: black;
+}
+
+.border {
+  border-bottom: none;
+  border-left: none;
+  border-top: none;
+}
+
 /*# sourceMappingURL=app.css.map */

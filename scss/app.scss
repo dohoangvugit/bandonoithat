@@ -1,4 +1,4 @@
-@import 'var';
+@use 'var' as *;
 
 .icon i {
   transition: all 0.3s ease;
@@ -26,5 +26,17 @@
 }
 
 
+.nav-link{
+  color:black;
+}
 
+.dropdown-item{
+  color:black;
+}
+
+.border{
+  border-bottom: none;
+  border-left: none;
+  border-top: none;
+}
 
