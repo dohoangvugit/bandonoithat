@@ -12,22 +12,22 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // hbs
 app.engine(
-  '.hbs',
-  engine({
-    extname: '.hbs',
-    layoutsDir: path.join(__dirname, 'views/layouts'),
-    partialsDir: path.join(__dirname, 'views/partials'),
-    defaultLayout: 'main',
-  }),
+    '.hbs',
+    engine({
+        extname: '.hbs',
+        layoutsDir: path.join(__dirname, 'views/layouts'),
+        partialsDir: path.join(__dirname, 'views/partials'),
+        defaultLayout: 'main',
+    }),
 );
 
 app.set('view engine', '.hbs');
 app.set('views', path.join(__dirname, 'views'));
 
 app.get('/', (req, res) => {
-  res.render('home');
+    res.render('home');
 });
 
 app.listen(port, () => {
-  console.log(`🚀 Server running at http://localhost:${port}`);
+    console.log(`🚀 Server running at http://localhost:${port}`);
 });
