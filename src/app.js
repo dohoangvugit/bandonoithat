@@ -2,12 +2,12 @@ const express = require('express');
 const path = require('path');
 const { engine } = require('express-handlebars');
 
+const db = require('./db')
+
 const app = express();
 const port = 3000;
 
-console.log('🔥 RUNNING src/app.js');
 
-// static
 app.use(express.static(path.join(__dirname, 'public')));
 
 // hbs

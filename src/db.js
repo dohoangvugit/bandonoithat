@@ -1,11 +1,23 @@
-const { Pool } = require('pg');
+const { Client } = require('pg');
 
-const pool = new Pool({
+const db = new Client({
     host: 'localhost',
     port: 5432,
     user: 'postgres',
-    password: 'your_password',
-    database: 'your_database',
+    password: 'emiuemiu',
+    database: 'bandonoithat',
 });
 
-module.exports = pool;
+async function connect() {
+  try {
+    await db.connect();
+    console.log('Kết nối PostgreSQL thành công');
+  } catch (err) {
+    console.error(' Kết nối PostgreSQL thất bại', err.message);
+    process.exit(1);
+  }
+}
+
+connect()
+
+module.exports = db;
