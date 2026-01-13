@@ -1,36 +1,33 @@
-const { engine } = require('express-handlebars');
 const express = require('express');
 const path = require('path');
+const { engine } = require('express-handlebars');
+
 const app = express();
 const port = 3000;
 
-const route = require('./routes/index.js')
+console.log('🔥 RUNNING src/app.js');
 
+// static
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(express.static(path.join(__dirname, 'public')))
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
+// hbs
 app.engine(
   '.hbs',
   engine({
     extname: '.hbs',
     layoutsDir: path.join(__dirname, 'views/layouts'),
     partialsDir: path.join(__dirname, 'views/partials'),
-    defaultLayout: 'main'
-  })
+    defaultLayout: 'main',
+  }),
 );
 
 app.set('view engine', '.hbs');
 app.set('views', path.join(__dirname, 'views'));
 
-
 app.get('/', (req, res) => {
   res.render('home');
 });
 
-route(app)
-
-app.listen(port, () =>
-  console.log(`Server đang chạy tại http://localhost:${port}`)
-);
+app.listen(port, () => {
+  console.log(`🚀 Server running at http://localhost:${port}`);
+});

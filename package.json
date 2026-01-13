@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon test.js",
-    "sass": "sass -w scss/app.scss public/css/app.css"
+    "dev": "nodemon src/app.js",
+    "sass": "sass -w src/scss/app.scss src/public/css/app.css",
+    "prettier": "prettier --single-quote all --write 'src/**/*.{js,scss,json}'"
   },
   "keywords": [],
   "author": "",

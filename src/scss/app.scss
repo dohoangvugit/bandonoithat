@@ -5,8 +5,8 @@
 }
 
 .icon:hover i {
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;          
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
   animation: fa-beat 1s infinite;
 }
 
@@ -15,7 +15,7 @@
   margin-top: 0;
 }
 
-.dropdown-item:active{
+.dropdown-item:active {
   background-color: #e5e5e5;
 }
 
@@ -25,18 +25,16 @@
   max-width: calc(100vw - 1rem);
 }
 
-
-.nav-link{
-  color:black;
+.nav-link {
+  color: black;
 }
 
-.dropdown-item{
-  color:black;
+.dropdown-item {
+  color: black;
 }
 
-.border{
+.border {
   border-bottom: none;
   border-left: none;
   border-top: none;
 }
-
