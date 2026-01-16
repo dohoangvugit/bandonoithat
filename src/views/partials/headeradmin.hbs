@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-lg bg-white">
+  <div class="container-fluid">
+
+    <a class="navbar-brand " href="#">
+      <img src="/img/logo.png" alt="Logo" height="40">
+    </a>
+
+    <div class="collapse navbar-collapse">
+        {{!-- <form class="d-flex align-items-center mx-auto" role="search">
+            <div class="input-group me-3">
+
+            <input
+                type="search"
+                class="form-control"
+                placeholder="Tìm kiếm sản phẩm..."
+                aria-label="Search"
+            />
+
+            <button class="btn btn-dark" type="submit">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+
+            </div>
+        </form> --}}
+
+        <div class="icon ms-auto dropdown">
+            <a href="#" class="text-dark btn btn-secondary dropdown-toggle bg-white border-0">
+                <i class="fa-regular fa-user fs-4"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+                {{!-- <li><a class="dropdown-item" href="#">Giỏ hàng</a></li> --}}
+                <li>
+                    <a
+                        class="dropdown-item"
+                        href="#"
+                        data-bs-toggle="modal"
+                        data-bs-target="#authModal"
+                    >
+                        Đăng nhập / Đăng ký
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+  </div>
+</nav>
+
+

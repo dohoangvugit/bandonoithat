@@ -1,0 +1,32 @@
+<div class="container">
+  <h3 class="fs-3 mb-4">Thêm sản phẩm</h3>
+
+  <div class="d-flex justify-content-center">
+    <div class="w-100" style="max-width: 900px">
+      <form action="/add-inventory" method="POST" enctype="multipart/form-data">
+
+        <div class="mb-3">
+          <label class="form-label">Tên sản phẩm</label>
+          <input class="form-control" name="name" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Giá</label>
+          <input class="form-control" name="price" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Mô tả</label>
+          <input class="form-control" name="description" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Hình ảnh</label>
+          <input type="file" class="form-control" name="image" />
+        </div>
+
+        <button class="btn btn-primary">Thêm sản phẩm</button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -30,8 +30,14 @@ app.get('/', (req, res) => {
     res.render('home');
 });
 
-
 route(app)
+
+app.get('/add', (req, res) => {
+  res.render('admin',{
+    layout: 'admin'
+  })
+})
+
 
 app.listen(port, () => {
     console.log(`🚀 Server running at http://localhost:${port}`);
