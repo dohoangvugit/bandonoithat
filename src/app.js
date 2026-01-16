@@ -2,14 +2,16 @@ const express = require('express');
 const path = require('path');
 const { engine } = require('express-handlebars');
 
-const db = require('./db')
+const db = require('../src/db')
+const route = require('./routes')
 
 const app = express();
 const port = 3000;
 
 
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 // hbs
 app.engine(
     '.hbs',
@@ -27,6 +29,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.get('/', (req, res) => {
     res.render('home');
 });
+
+
+route(app)
 
 app.listen(port, () => {
     console.log(`🚀 Server running at http://localhost:${port}`);
