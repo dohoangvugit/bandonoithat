@@ -1,6 +1,8 @@
 <h2>Quản lí sản phẩm</h2>
 
-<button id='btnAddProduct'>Thêm sản phẩm</button>
+<a href='/admin/products/add' class='btn btn-primary'>
+    Thêm sản phẩm
+</a>
 
 <table id='productsTable' class='table'>
     <thead>
@@ -14,6 +16,27 @@
         </tr>
     </thead>
     <tbody>
+        {{#each products}}
+            <tr>
+                <td>{{id}}</td>
+                <td>
+                    <img src='{{image}}' width='60' />
+                </td>
+                <td>{{name}}</td>
+                <td>{{price}}</td>
+                <td>{{inventory}}</td>
+                <td>
+                    <button class='btnDelete' data-id='{{id}}'>Xóa</button>
+                    <a
+                        href='/admin/products/{{id}}/edit'
+                        class='btn btn-sm btn-warning'
+                    >
+                        Sửa
+                    </a>
+                </td>
+            </tr>
+        {{/each}}
     </tbody>
 </table>
+
 <script src='/js/admin/products.js'></script>
