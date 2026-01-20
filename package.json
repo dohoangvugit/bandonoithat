@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "nodemon src/app.js",
     "sass": "sass -w src/scss/app.scss src/public/css/app.css",
-    "format": "prettier --single-quote all --tab-width 4 --write 'src/**/*.{js,scss,json}'"
+    "format": "prettier --single-quote all --tab-width 4 --write 'src/**/*.{js,scss,json,hbs}'"
   },
   "keywords": [],
   "author": "",

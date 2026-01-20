@@ -2,12 +2,11 @@ const express = require('express');
 const path = require('path');
 const { engine } = require('express-handlebars');
 
-const db = require('../src/db')
-const route = require('./routes')
+const db = require('../src/db');
+const route = require('./routes');
 
 const app = express();
 const port = 3000;
-
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
@@ -30,14 +29,21 @@ app.get('/', (req, res) => {
     res.render('home');
 });
 
-route(app)
+route(app);
 
-app.get('/add', (req, res) => {
-  res.render('admin',{
-    layout: 'admin'
-  })
-})
+app.get('/admin/add', (req, res) => {
+    res.render('admin/admin', {
+        layout: 'admin',
+    });
+});
 
+app.get('/admin/products', async (req, res) => {
+    //   const inventory = await getInventoryFromDB()
+    res.render('admin/products', {
+        layout: 'admin',
+        // inventory
+    });
+});
 
 app.listen(port, () => {
     console.log(`🚀 Server running at http://localhost:${port}`);
