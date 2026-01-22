@@ -1,0 +1,53 @@
+<div id="carouselExampleCaptions" class="carousel slide mb-5 hero-carousel">
+
+  <div class="carousel-indicators">
+    {{#each slides}}
+      <button
+        type="button"
+        data-bs-target="#carouselExampleCaptions"
+        data-bs-slide-to="{{@index}}"
+        class="{{#if @first}}active{{/if}}"
+        aria-current="{{#if @first}}true{{/if}}">
+      </button>
+    {{/each}}
+  </div>
+
+  <div class="carousel-inner">
+
+    {{#each slides}}
+    <div class="carousel-item {{#if @first}}active{{/if}}">
+      <div class="bg-light py-5">
+        <div class="container text-center">
+
+          <!-- IMAGE -->
+          <img
+            src="{{image}}"
+            class="d-block mx-auto mb-4"
+            style="max-height: 350px; object-fit: contain;"
+            alt="{{name}}">
+
+          <!-- CONTENT -->
+          <h5 class="fw-bold">{{name}}</h5>
+          <p class="text-muted mb-3">
+            {{description}}
+          </p>
+
+          <a href="/cart" class="btn btn-primary">
+            {{price}} ₫
+          </a>
+
+        </div>
+      </div>
+    </div>
+    {{/each}}
+
+  </div>
+
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+</div>

@@ -25,25 +25,8 @@ app.engine(
 app.set('view engine', '.hbs');
 app.set('views', path.join(__dirname, 'views'));
 
-app.get('/', (req, res) => {
-    res.render('home');
-});
 
 route(app);
-
-app.get('/admin/add', (req, res) => {
-    res.render('admin/admin', {
-        layout: 'admin',
-    });
-});
-
-app.get('/admin/products', async (req, res) => {
-    //   const inventory = await getInventoryFromDB()
-    res.render('admin/products', {
-        layout: 'admin',
-        // inventory
-    });
-});
 
 app.listen(port, () => {
     console.log(`🚀 Server running at http://localhost:${port}`);

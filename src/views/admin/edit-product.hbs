@@ -1,4 +1,4 @@
-<h2 class='mb-4'>Edit Product</h2>
+<h2 class='mb-4'>Sửa sản phẩm</h2>
 
 <div class='card shadow-sm'>
     <div class='card-body'>
@@ -11,7 +11,7 @@
 
             <!-- NAME -->
             <div class='mb-3'>
-                <label class='form-label fw-semibold'>Item name</label>
+                <label class='form-label fw-semibold'>Tên sản phẩm</label>
                 <input
                     type='text'
                     name='name'
@@ -23,7 +23,7 @@
 
             <!-- PRICE -->
             <div class='mb-3'>
-                <label class='form-label fw-semibold'>Item price</label>
+                <label class='form-label fw-semibold'>Giá </label>
                 <input
                     type='number'
                     name='price'
@@ -35,7 +35,7 @@
 
             <!-- BRAND -->
             <div class='mb-3'>
-                <label class='form-label fw-semibold'>Item brand</label>
+                <label class='form-label fw-semibold'>Thương hiệu</label>
                 <input
                     type='text'
                     name='brand'
@@ -47,7 +47,7 @@
 
             <!-- DESCRIPTION -->
             <div class='mb-3'>
-                <label class='form-label fw-semibold'>Item description</label>
+                <label class='form-label fw-semibold'>Mô tả sản phẩm</label>
                 <textarea
                     name='description'
                     class='form-control'
@@ -57,7 +57,7 @@
 
             <!-- CURRENT IMAGE -->
             <div class='mb-3'>
-                <label class='form-label fw-semibold'>Current image</label><br
+                <label class='form-label fw-semibold'>Ảnh hiện tại</label><br
                 />
                 <img
                     src='{{product.image}}'
@@ -68,13 +68,13 @@
 
             <!-- NEW IMAGE -->
             <div class='mb-3'>
-                <label class='form-label fw-semibold'>Change image</label>
+                <label class='form-label fw-semibold'>Chọn ảnh</label>
                 <input type='file' name='image' class='form-control' />
             </div>
 
             <!-- INVENTORY -->
             <div class='mb-4'>
-                <label class='form-label fw-semibold'>In stock</label>
+                <label class='form-label fw-semibold'>Số lượng</label>
                 <input
                     type='number'
                     name='currentInventory'
@@ -87,11 +87,11 @@
             <!-- ACTIONS -->
             <div class='d-flex gap-2'>
                 <button type='submit' class='btn btn-primary'>
-                    Update Product
+                    Cập nhật
                 </button>
 
                 <a href='/admin/products' class='btn btn-secondary'>
-                    Cancel
+                    Quay lại
                 </a>
             </div>
 

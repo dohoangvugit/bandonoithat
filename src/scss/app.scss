@@ -38,3 +38,61 @@
     border-left: none;
     border-top: none;
 }
+
+/* ===== HERO SLIDER BACKGROUND ===== */
+.hero-carousel .carousel-item {
+  min-height: 300px;
+}
+
+.hero-carousel .carousel-item > div {
+  background-color: #8EC1F5; /* xanh dương nhạt */
+}
+
+
+
+/* ===== IMAGE NỔI BẬT HƠN ===== */
+.hero-carousel img {
+  position: relative;
+  z-index: 2;
+}
+
+/* ===== BUTTON GIÁ: VUÔNG – TRONG SUỐT ===== */
+.hero-carousel .btn {
+  background: transparent;
+  border: 2px solid #000;
+  color: #000;
+  padding: 10px 26px;
+  border-radius: 0;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.hero-carousel .btn:hover {
+  background: #000;
+  color: #fff;
+}
+
+/* ===== INDICATORS RÕ HƠN ===== */
+.hero-carousel .carousel-indicators button {
+  background-color: rgba(0,0,0,0.3);
+}
+
+.hero-carousel .carousel-indicators .active {
+  background-color: #000;
+}
+
+/* ===== PREV / NEXT RÕ RÀNG ===== */
+.hero-carousel .carousel-control-prev-icon,
+.hero-carousel .carousel-control-next-icon {
+  background-color: rgba(0,0,0,0.6);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  background-size: 50% 50%;
+}
+
+/* tăng tương phản */
+.hero-carousel .carousel-control-prev,
+.hero-carousel .carousel-control-next {
+  opacity: 1;
+}
