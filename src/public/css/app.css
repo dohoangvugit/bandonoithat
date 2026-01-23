@@ -110,4 +110,39 @@
   right: -22px;
 }
 
+/* ===== CATEGORY GRID ===== */
+.category-grid .category-card {
+  display: block;
+  position: relative;
+  background: white;
+  padding: 24px;
+  text-decoration: none;
+  color: #000;
+  height: 100%;
+  transition: all 0.3s ease;
+  border: 0.5px solid;
+}
+.category-grid .category-card:hover {
+  transform: translateY(-4px);
+}
+.category-grid .category-bg {
+  text-align: center;
+}
+.category-grid .category-bg img {
+  max-height: 160px;
+  object-fit: contain;
+  margin-bottom: 16px;
+}
+.category-grid .category-content {
+  text-align: center;
+}
+.category-grid .category-content h5 {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.category-grid .category-content p {
+  margin-bottom: 12px;
+  color: #555;
+}
+
 /*# sourceMappingURL=app.css.map */

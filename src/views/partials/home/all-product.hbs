@@ -1,0 +1,23 @@
+<section class="container my-5 category-grid">
+
+  <h3 class="mb-4">Danh mục sản phẩm</h3>
+
+  <!-- ROW 1 -->
+  <div class="row g-4 mb-4">
+    {{#each categoriesTop}}
+      <div class="col-md-4">
+        {{> home/category-card}}
+      </div>
+    {{/each}}
+  </div>
+
+  <!-- ROW 2 -->
+  <div class="row g-4 justify-content-center">
+    {{#each categoriesBottom}}
+      <div class="col-md-4">
+        {{> home/category-card}}
+      </div>
+    {{/each}}
+  </div>
+
+</section>

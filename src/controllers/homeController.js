@@ -1,4 +1,5 @@
 const ProductModel = require('../models/productsModel')
+const CategoryModel = require('../models/categoryModel')
 
 class HomeController {
     
@@ -13,10 +14,15 @@ class HomeController {
     }))
 
     const trending = await ProductModel.getTrendingSofas(12)
-
+    const categoriesResult  = await CategoryModel.getOverview()
+    const categories = categoriesResult.rows
     res.render(
       'home',
-      {slides,trendingProducts: trending.rows},
+      {
+        slides,
+        trendingProducts: trending.rows,
+        categoriesTop: categories.slice(0, 3),
+        categoriesBottom: categories.slice(3, 5)},
       )
   }
 

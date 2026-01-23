@@ -62,3 +62,47 @@
     right: -22px;
   }
 }
+
+/* ===== CATEGORY GRID ===== */
+.category-grid {
+
+  .category-card {
+    display: block;
+    position: relative;
+    background: white;
+    padding: 24px;
+    text-decoration: none;
+    color: #000;
+    height: 100%;
+    transition: all 0.3s ease;
+    border: 0.5px solid ;
+
+    &:hover {
+      transform: translateY(-4px);
+    }
+  }
+
+  .category-bg {
+    text-align: center;
+
+    img {
+      max-height: 160px;
+      object-fit: contain;
+      margin-bottom: 16px;
+    }
+  }
+
+  .category-content {
+    text-align: center;
+
+    h5 {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    p {
+      margin-bottom: 12px;
+      color: #555;
+    }
+  }
+}
