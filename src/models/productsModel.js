@@ -52,7 +52,7 @@ const ProductModel = {
       inventory = $5,
       image = $6
     WHERE id = $7
-  `;
+  `
 
         const values = [
             data.name,
@@ -66,6 +66,19 @@ const ProductModel = {
 
         return db.query(sql, values);
     },
+    getTrendingSofas(limit = 10) {
+  const sql = `
+    SELECT
+      p.id, p.name, p.price, p.image
+    FROM products p
+    JOIN product_categories pc ON pc.product_id = p.id
+    JOIN categories c ON c.id = pc.category_id
+    WHERE c.slug = 'sofas'
+    ORDER BY p.inventory DESC
+    LIMIT $1
+  `
+  return db.query(sql, [limit])
+}
 };
 
 module.exports = ProductModel;

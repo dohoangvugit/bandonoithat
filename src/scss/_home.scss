@@ -1,0 +1,64 @@
+@use 'var' as *;
+@use 'carousel';
+
+/* ===== HERO SLIDER ===== */
+.hero-carousel {
+  @extend .carousel-base;
+
+  .carousel-item {
+    min-height: 300px;
+  }
+
+  .carousel-item > div {
+    background-color: $hero-bg;
+  }
+
+  img {
+    position: relative;
+    z-index: 2;
+  }
+
+  .btn {
+    background: transparent;
+    border: 2px solid #000;
+    color: #000;
+    padding: 10px 26px;
+    border-radius: 0;
+    font-weight: 500;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: #000;
+      color: #fff;
+    }
+  }
+}
+
+/* ===== TRENDING SLIDER ===== */
+.trending-carousel {
+  @extend .carousel-base;
+
+  .carousel-control-prev,
+  .carousel-control-next {
+    width: 44px;
+    height: 44px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(0,0,0,.15);
+
+    &:hover {
+      background: #f0f0f0;
+    }
+  }
+
+  .carousel-control-prev {
+    left: -22px;
+  }
+
+  .carousel-control-next {
+    right: -22px;
+  }
+}

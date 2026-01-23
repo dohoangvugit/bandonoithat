@@ -1,4 +1,31 @@
 @charset "UTF-8";
+/* ===== CAROUSEL BASE (DÙNG CHUNG) ===== */
+.carousel-base, .hero-carousel, .trending-carousel {
+  position: relative;
+}
+.carousel-base .carousel-control-prev-icon, .hero-carousel .carousel-control-prev-icon, .trending-carousel .carousel-control-prev-icon,
+.carousel-base .carousel-control-next-icon,
+.hero-carousel .carousel-control-next-icon,
+.trending-carousel .carousel-control-next-icon {
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  background-size: 50% 50%;
+}
+.carousel-base .carousel-control-prev, .hero-carousel .carousel-control-prev, .trending-carousel .carousel-control-prev,
+.carousel-base .carousel-control-next,
+.hero-carousel .carousel-control-next,
+.trending-carousel .carousel-control-next {
+  opacity: 1;
+}
+.carousel-base .carousel-indicators button, .hero-carousel .carousel-indicators button, .trending-carousel .carousel-indicators button {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.carousel-base .carousel-indicators .active, .hero-carousel .carousel-indicators .active, .trending-carousel .carousel-indicators .active {
+  background-color: #000;
+}
+
 .icon i {
   transition: all 0.3s ease;
 }
@@ -24,10 +51,7 @@
   max-width: calc(100vw - 1rem);
 }
 
-.nav-link {
-  color: black;
-}
-
+.nav-link,
 .dropdown-item {
   color: black;
 }
@@ -38,22 +62,17 @@
   border-top: none;
 }
 
-/* ===== HERO SLIDER BACKGROUND ===== */
+/* ===== HERO SLIDER ===== */
 .hero-carousel .carousel-item {
   min-height: 300px;
 }
-
 .hero-carousel .carousel-item > div {
-  background-color: #8EC1F5; /* xanh dương nhạt */
+  background-color: #8EC1F5;
 }
-
-/* ===== IMAGE NỔI BẬT HƠN ===== */
 .hero-carousel img {
   position: relative;
   z-index: 2;
 }
-
-/* ===== BUTTON GIÁ: VUÔNG – TRONG SUỐT ===== */
 .hero-carousel .btn {
   background: transparent;
   border: 2px solid #000;
@@ -63,35 +82,32 @@
   font-weight: 500;
   transition: all 0.3s ease;
 }
-
 .hero-carousel .btn:hover {
   background: #000;
   color: #fff;
 }
 
-/* ===== INDICATORS RÕ HƠN ===== */
-.hero-carousel .carousel-indicators button {
-  background-color: rgba(0, 0, 0, 0.3);
-}
-
-.hero-carousel .carousel-indicators .active {
-  background-color: #000;
-}
-
-/* ===== PREV / NEXT RÕ RÀNG ===== */
-.hero-carousel .carousel-control-prev-icon,
-.hero-carousel .carousel-control-next-icon {
-  background-color: rgba(0, 0, 0, 0.6);
+/* ===== TRENDING SLIDER ===== */
+.trending-carousel .carousel-control-prev,
+.trending-carousel .carousel-control-next {
+  width: 44px;
+  height: 44px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #fff;
+  border: 1px solid #ddd;
   border-radius: 50%;
-  width: 48px;
-  height: 48px;
-  background-size: 50% 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
-
-/* tăng tương phản */
-.hero-carousel .carousel-control-prev,
-.hero-carousel .carousel-control-next {
-  opacity: 1;
+.trending-carousel .carousel-control-prev:hover,
+.trending-carousel .carousel-control-next:hover {
+  background: #f0f0f0;
+}
+.trending-carousel .carousel-control-prev {
+  left: -22px;
+}
+.trending-carousel .carousel-control-next {
+  right: -22px;
 }
 
 /*# sourceMappingURL=app.css.map */

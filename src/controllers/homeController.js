@@ -12,7 +12,12 @@ class HomeController {
       price: product.price
     }))
 
-    res.render('home', {slides})
+    const trending = await ProductModel.getTrendingSofas(12)
+
+    res.render(
+      'home',
+      {slides,trendingProducts: trending.rows},
+      )
   }
 
 }
