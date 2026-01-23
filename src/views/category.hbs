@@ -1,0 +1,15 @@
+<section class="container my-5 category-page">
+
+  <h2 class="mb-4 text-capitalize">
+    {{slug}}
+  </h2>
+
+  <div class="row g-4 category-grid-5">
+    {{#each products}}
+      <div class="col category-col">
+        {{> product/card}}
+      </div>
+    {{/each}}
+  </div>
+
+</section>

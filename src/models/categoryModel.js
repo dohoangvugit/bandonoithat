@@ -24,7 +24,24 @@ const CategoryModel = {
       LIMIT 5
     `
     return db.query(sql)
-  }
+  },
+
+  getProductsBySlug(slug) {
+  const sql = `
+    SELECT
+      p.id,
+      p.name,
+      p.price,
+      p.image
+    FROM products p
+    JOIN product_categories pc ON pc.product_id = p.id
+    JOIN categories c ON c.id = pc.category_id
+    WHERE c.slug = $1
+    ORDER BY p.id DESC
+  `
+  return db.query(sql, [slug])
+}
+
 
 }
 
