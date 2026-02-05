@@ -21,6 +21,7 @@
     "express": "^5.2.1",
     "express-handlebars": "^8.0.1",
     "multer": "^2.0.2",
-    "pg": "^8.16.3"
+    "pg": "^8.16.3",
+    "postgres": "^3.4.8"
   }
 }
