@@ -25,7 +25,6 @@ app.engine(
 app.set('view engine', '.hbs');
 app.set('views', path.join(__dirname, 'views'));
 
-
 route(app);
 
 app.listen(port, () => {

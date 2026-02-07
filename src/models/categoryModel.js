@@ -1,9 +1,8 @@
-const db = require('../db')
+const db = require('../db');
 
 const CategoryModel = {
-
-  getOverview() {
-    const sql = `
+    getOverview() {
+        const sql = `
       SELECT
         c.id,
         c.name,
@@ -22,12 +21,12 @@ const CategoryModel = {
       GROUP BY c.id
       ORDER BY c.id
       LIMIT 5
-    `
-    return db.query(sql)
-  },
+    `;
+        return db.query(sql);
+    },
 
-  getProductsBySlug(slug) {
-  const sql = `
+    getProductsBySlug(slug) {
+        const sql = `
     SELECT
       p.id,
       p.name,
@@ -38,11 +37,9 @@ const CategoryModel = {
     JOIN categories c ON c.id = pc.category_id
     WHERE c.slug = $1
     ORDER BY p.id DESC
-  `
-  return db.query(sql, [slug])
-}
+  `;
+        return db.query(sql, [slug]);
+    },
+};
 
-
-}
-
-module.exports = CategoryModel
+module.exports = CategoryModel;

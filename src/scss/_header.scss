@@ -1,37 +1,37 @@
 @use 'var' as *;
 
 .icon i {
-  transition: all 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .icon:hover i {
-  font-family: 'Font Awesome 6 Free';
-  font-weight: 900;
-  animation: fa-beat 1s infinite;
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    animation: fa-beat 1s infinite;
 }
 
 .icon.dropdown:hover > .dropdown-menu {
-  display: block;
-  margin-top: 0;
+    display: block;
+    margin-top: 0;
 }
 
 .dropdown-item:active {
-  background-color: $dropdown-active-bg;
+    background-color: $dropdown-active-bg;
 }
 
 .icon.dropdown .dropdown-menu {
-  right: 0;
-  left: auto;
-  max-width: calc(100vw - 1rem);
+    right: 0;
+    left: auto;
+    max-width: calc(100vw - 1rem);
 }
 
 .nav-link,
 .dropdown-item {
-  color: black;
+    color: black;
 }
 
 .border {
-  border-bottom: none;
-  border-left: none;
-  border-top: none;
+    border-bottom: none;
+    border-left: none;
+    border-top: none;
 }
