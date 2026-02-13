@@ -2,3 +2,25 @@
 @use 'carousel';
 @use 'header';
 @use 'home';
+
+// details
+
+.product-img {
+  max-height: 350px;
+  object-fit: contain;
+}
+
+.qty-btn {
+  width: 45px;
+  height: 45px;
+  font-size: 20px;
+}
+
+.qty-display {
+  width: 50px;
+  text-align: center;
+  font-size: 18px;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  padding-top: 10px;
+}

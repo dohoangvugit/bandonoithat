@@ -67,7 +67,7 @@
   min-height: 300px;
 }
 .hero-carousel .carousel-item > div {
-  background-color: #8EC1F5;
+  background-color: #8ec1f5;
 }
 .hero-carousel img {
   position: relative;
@@ -227,6 +227,25 @@
   .category-grid-5 {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+.product-img {
+  max-height: 350px;
+  object-fit: contain;
+}
+
+.qty-btn {
+  width: 45px;
+  height: 45px;
+  font-size: 20px;
+}
+
+.qty-display {
+  width: 50px;
+  text-align: center;
+  font-size: 18px;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  padding-top: 10px;
 }
 
 /*# sourceMappingURL=app.css.map */

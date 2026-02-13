@@ -1,14 +1,13 @@
 <section class='container my-5'>
     <div class='d-flex align-items-center mb-3 position-relative'>
         <h3 class='mb-20 position-absolute start-50 translate-middle-x'>
-            Trending Now
+            Xu hướng
         </h3>
     </div>
 
     <div id='trendingCarousel' class='carousel slide trending-carousel'>
         <div class='carousel-inner' id='trendingInner'>
 
-            {{! render item thô, JS sẽ group }}
             {{#each trendingProducts}}
                 <div class='trending-item d-none'>
                     <div class='card h-100'>
