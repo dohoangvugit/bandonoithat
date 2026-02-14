@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const { engine } = require('express-handlebars');
 
-const db = require('../src/db');
+const db = require('../src/config/db');
 const route = require('./routes');
 
 const app = express();
