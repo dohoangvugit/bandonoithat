@@ -18,6 +18,7 @@
     "sass": "^1.97.2"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.95.3",
     "express": "^5.2.1",
     "express-handlebars": "^8.0.1",
     "hbs": "^4.2.0",
