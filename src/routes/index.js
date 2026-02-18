@@ -10,7 +10,7 @@ function route(app) {
     app.use('/cart', cartRoute);
 
     app.use('/admin', adminProductRoute);
-    app.use('/', productRoutes);
+    app.use('/product', productRoutes);
     app.use('/', homeRoute);
     app.use('/', categoryRoute);
 }

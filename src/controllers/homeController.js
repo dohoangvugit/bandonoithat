@@ -6,6 +6,7 @@ class HomeController {
         const result = await ProductModel.getAll();
 
         const slides = result.rows.map((product) => ({
+            id: product.id,
             image: product.image,
             name: product.name,
             description: product.description,
