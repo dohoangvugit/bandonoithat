@@ -1,0 +1,70 @@
+<div class="container py-5">
+
+  <h1 class="display-5 fw-light mb-4"> Giỏ hàng của bạn</h1>
+
+  {{#if cart.length}}
+
+  <table class="table align-middle">
+    <thead>
+      <tr>
+        <th>Ảnh</th>
+        <th>Sản phẩm</th>
+        <th>Giá</th>
+        <th>Số lượng</th>
+        <th>Tổng</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {{#each cart}}
+      <tr id="row-{{this.products.id}}">
+        <td>
+          <img src="{{this.products.image}}" width="80">
+        </td>
+
+        <td>
+          <b>{{this.products.name}}</b>
+        </td>
+
+        <td>
+          <span id="price-{{this.products.id}}">
+            {{this.products.price}}
+          </span> VNĐ
+        </td>
+
+        <td>
+          <div class="d-flex align-items-center">
+            <button class="btn btn-outline-dark btn-sm" onclick="decrement({{this.products.id}})">-</button>
+            <span class="px-3 fw-bold" id="qty-{{this.products.id}}">{{this.quantity}}</span>
+            <button class="btn btn-outline-dark btn-sm" onclick="increment({{this.products.id}})">+</button>
+          </div>
+        </td>
+
+        <td>
+          <b id="subtotal-{{this.products.id}}"></b> VNĐ
+        </td>
+
+        <td>
+          <button class="btn btn-danger btn-sm" onclick="removeFromCart({{this.products.id}})">X</button>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  <div class="d-flex justify-content-end fs-4">
+    Tổng tiền: <b class="ms-3 text-danger" id="totalPrice"></b> VNĐ
+  </div>
+
+  <div class="text-end mt-4">
+    <a href="/checkout" class="btn btn-dark btn-lg">Thanh toán →</a>
+  </div>
+
+  {{else}}
+  <h3>Giỏ hàng trống </h3>
+  {{/if}}
+
+</div>
+
+<script src="/js/cart.js"></script>

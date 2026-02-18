@@ -1,5 +1,4 @@
 let quantity = 1;
-let cart = [];
 
 function increment() {
     quantity++;
@@ -7,23 +6,32 @@ function increment() {
 }
 
 function decrement() {
-    if (quantity === 1) return;
-    quantity--;
+    if (quantity > 1) quantity--;
     document.getElementById('qty').innerText = quantity;
 }
 
-function addToCart(product) {
-    const index = cart.findIndex((item) => item.id === product.id);
+async function addToCart(productId) {
+    console.log("PRODUCT ID FRONT:", productId);
 
-    if (index >= 0) {
-        cart[index].quantity += quantity;
-    } else {
-        cart.push({ ...product, quantity });
+    const res = await fetch('/cart/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+            productId: productId,
+            quantity: quantity
+        })
+    });
+
+    const data = await res.json();
+    console.log("SERVER:", data);
+
+    if (res.status === 401) {
+        alert('Bạn cần đăng nhập!');
+        window.location.href = '/?auth=login';
+        return;
     }
 
-    console.log('Cart:', cart);
-
-    // SHOW TOAST
     const toast = new bootstrap.Toast(document.getElementById('cartToast'));
     toast.show();
 }

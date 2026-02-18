@@ -1,61 +1,92 @@
 const cartModel = require('../models/cartModel');
 
 class CartController {
-    // GET /cart/:id
+
+    // API GET CART JSON
     async getCart(req, res) {
         try {
-            const cartId = req.params.id;
-            const cart = await cartModel.getById(cartId);
+            const userId = req.user.id;
 
-            res.json({
-                success: true,
-                cart,
-            });
+            const cart = await cartModel.getOrCreateCart(userId);
+            const items = await cartModel.getCartItems(cart.id);
+
+            res.json({ success: true, cartId: cart.id, items });
         } catch (err) {
             console.error(err);
-            res.status(500).json({ error: 'Get cart failed' });
+            res.status(500).json({ error: err.message });
         }
     }
 
-    // POST /cart/add
+    // ADD TO CART API
     async addToCart(req, res) {
         try {
-            const { cartId, productId, quantity } = req.body;
+            const userId = req.user.id;
+            const { productId, quantity } = req.body;
 
-            await cartModel.addItem(cartId, productId, quantity);
+            const cart = await cartModel.getOrCreateCart(userId);
 
-            res.json({ success: true, message: 'Added to cart' });
+            console.log("ADD CART:", cart.id, productId, quantity);
+
+            await cartModel.addItem(cart.id, Number(productId), Number(quantity));
+
+            res.json({ success: true });
         } catch (err) {
             console.error(err);
-            res.status(500).json({ error: 'Add cart failed' });
+            res.status(500).json({ error: err.message });
         }
     }
 
-    // PUT /cart/update
     async updateCart(req, res) {
         try {
-            const { cartId, productId, quantity } = req.body;
+            const userId = req.user.id;
+            const { productId, quantity } = req.body;
 
-            await cartModel.updateQuantity(cartId, productId, quantity);
+            const cart = await cartModel.getOrCreateCart(userId);
+            await cartModel.updateQuantity(cart.id, productId, quantity);
 
-            res.json({ success: true, message: 'Updated quantity' });
+            res.json({ success: true });
         } catch (err) {
             console.error(err);
-            res.status(500).json({ error: 'Update failed' });
+            res.status(500).json({ error: err.message });
         }
     }
 
-    // DELETE /cart/remove
     async removeFromCart(req, res) {
         try {
-            const { cartId, productId } = req.body;
+            const userId = req.user.id;
+            const { productId } = req.body;
 
-            await cartModel.removeItem(cartId, productId);
+            const cart = await cartModel.getOrCreateCart(userId);
+            await cartModel.removeItem(cart.id, productId);
 
-            res.json({ success: true, message: 'Removed from cart' });
+            res.json({ success: true });
         } catch (err) {
             console.error(err);
-            res.status(500).json({ error: 'Remove failed' });
+            res.status(500).json({ error: err.message });
+        }
+    }
+
+    // RENDER CART PAGE (HBS)
+    async renderCartPage(req, res) {
+        try {
+            const userId = req.user.id;
+
+            const cart = await cartModel.getOrCreateCart(userId);
+            const items = await cartModel.getCartItems(cart.id);
+
+            let total = 0;
+            items.forEach(item => {
+                total += item.products.price * item.quantity;
+            });
+
+            res.render('cart', {
+                cart: items,
+                total
+            });
+
+        } catch (err) {
+            console.error(err);
+            res.status(500).send('Cart error');
         }
     }
 }
