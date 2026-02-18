@@ -1,41 +1,54 @@
-<div class="container py-5">
+<div class='container py-5'>
 
-  <div class="row align-items-center">
+    <div class='row align-items-center'>
 
-    <div class="col-md-6 bg-light p-4 d-flex justify-content-center">
-      <img src="{{product.image}}" class="img-fluid product-img">
+        <div class='col-md-6 bg-light p-4 d-flex justify-content-center'>
+            <img src='{{product.image}}' class='img-fluid product-img' />
+        </div>
+
+        <div class='col-md-6 px-4'>
+            <h1 class='display-5 fw-light'>{{product.name}}</h1>
+            <h3 class='text-primary my-3'>{{formatPrice product.price}} VNĐ</h3>
+            <p class='text-muted'>{{product.description}}</p>
+
+            <!-- Quantity -->
+            <div class='d-flex align-items-center my-3'>
+                <span class='me-2 small'>Số lượng</span>
+                <button
+                    class='btn btn-outline-dark'
+                    onclick='decrement()'
+                >-</button>
+                <span id='qty' class='px-3 fw-bold'>1</span>
+                <button
+                    class='btn btn-outline-dark'
+                    onclick='increment()'
+                >+</button>
+            </div>
+
+            <!-- ADD TO CART -->
+            <button
+                class='btn btn-dark w-100 py-2'
+                onclick='addToCart({{{json product}}})'
+            >
+                Thêm vào giỏ hàng
+            </button>
+
+        </div>
     </div>
-
-    <div class="col-md-6 px-4">
-      <h1 class="display-5 fw-light">{{product.name}}</h1>
-      <h3 class="text-primary my-3">{{formatPrice product.price}} VNĐ</h3>
-      <p class="text-muted">{{product.description}}</p>
-
-      <!-- Quantity -->
-      <div class="d-flex align-items-center my-3">
-        <span class="me-2 small">Số lượng</span>
-        <button class="btn btn-outline-dark" onclick="decrement()">-</button>
-        <span id="qty" class="px-3 fw-bold">1</span>
-        <button class="btn btn-outline-dark" onclick="increment()">+</button>
-      </div>
-
-      <!-- ADD TO CART -->
-      <button class="btn btn-dark w-100 py-2" onclick='addToCart({{{json product}}})'>
-        Thêm vào giỏ hàng
-      </button>
-
-    </div>
-  </div>
 </div>
 
 <!-- TOAST -->
-<div class="toast-container position-fixed top-0 start-0 p-3">
-  <div id="cartToast" class="toast align-items-center text-bg-dark border-0">
-    <div class="d-flex">
-      <div class="toast-body">
-        Đã thêm vào giỏ hàng!
-      </div>
-      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+<div class='toast-container position-fixed top-0 start-0 p-3'>
+    <div id='cartToast' class='toast align-items-center text-bg-dark border-0'>
+        <div class='d-flex'>
+            <div class='toast-body'>
+                Đã thêm vào giỏ hàng!
+            </div>
+            <button
+                type='button'
+                class='btn-close btn-close-white me-2 m-auto'
+                data-bs-dismiss='toast'
+            ></button>
+        </div>
     </div>
-  </div>
 </div>

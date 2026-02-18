@@ -21,6 +21,7 @@
     "@supabase/supabase-js": "^2.95.3",
     "express": "^5.2.1",
     "express-handlebars": "^8.0.1",
+    "express-session": "^1.19.0",
     "hbs": "^4.2.0",
     "multer": "^2.0.2",
     "pg": "^8.16.3",

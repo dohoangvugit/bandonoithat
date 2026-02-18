@@ -1,6 +1,34 @@
 const authModel = require('../models/authModel');
 
 class AuthController {
+    async login(req, res) {
+        try {
+            const { username, password } = req.body;
+            const result = await authModel.login(username, password);
+
+            if (result.rows.length === 0) {
+                return res.redirect('/?auth=login&status=fail');
+            }
+
+            const user = result.rows[0];
+
+            // LƯU SESSION
+            req.session.user = {
+                id: user.id,
+                username: user.username,
+                role: user.role,
+            };
+
+            if (user.role === 'admin') {
+                return res.redirect('/admin/products');
+            }
+
+            return res.redirect('/');
+        } catch (err) {
+            console.error(err);
+            return res.redirect('/?auth=login&status=fail');
+        }
+    }
     async register(req, res) {
         try {
             const { username, email, phone, password, role } = req.body;
@@ -20,29 +48,6 @@ class AuthController {
             console.error(' Lỗi đăng ký:', error);
 
             return res.redirect('/?auth=register&status=fail');
-        }
-    }
-
-    async login(req, res) {
-        try {
-            const { username, password } = req.body; 
-            const result = await authModel.login(username, password);
-            if (result.rows.length === 0) {
-                console.log('sai tên đăng nhập hoặc mật khẩu');
-                return res.redirect('/?auth=login&status=fail');
-            } else{
-                const user = result.rows[0]
-                if (user.role === 'admin') {
-                    console.log('admin đăng nhập thành công')
-                    return res.redirect('/admin/products')
-                } else {
-                    console.log(`${username} đăng nhập thành công`)
-                    return res.redirect('/')
-                }
-            } 
-        } catch (error) {
-            console.error('đăng nhập thất bại', error);
-            return res.status(500).send('Đăng nhập thất bại');
         }
     }
 }

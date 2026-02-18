@@ -3,9 +3,11 @@ const adminProductRoute = require('./admin/products');
 const homeRoute = require('../routes/home');
 const categoryRoute = require('./categoryRoute');
 const productRoutes = require('./detailsProduct');
+const cartRoute = require('./cart');
 
 function route(app) {
     app.use('/auth', authRoute);
+    app.use('/cart', cartRoute);
 
     app.use('/admin', adminProductRoute);
     app.use('/', productRoutes);
