@@ -38,6 +38,7 @@ app.engine(
             json: (x) => JSON.stringify(x),
             eq: (a, b) => a === b,
             formatPrice: (v) => v.toLocaleString(),
+            multiply: (a,b) => a*b,
         },
     }),
 );

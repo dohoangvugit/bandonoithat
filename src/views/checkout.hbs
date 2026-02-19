@@ -1,0 +1,47 @@
+<div class="container py-5">
+  <h1 class="display-5 fw-light mb-4">Thanh toán</h1>
+
+  {{#if items.length}}
+  <table class="table align-middle">
+    <thead>
+      <tr>
+        <th>Ảnh</th>
+        <th>Sản phẩm</th>
+        <th>Giá</th>
+        <th>Số lượng</th>
+        <th>Tổng</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each items}}
+      <tr>
+        <td><img src="{{this.products.image}}" width="80"></td>
+        <td>{{this.products.name}}</td>
+        <td>{{formatPrice this.products.price}} VNĐ</td>
+        <td>{{this.quantity}}</td>
+        <td>{{formatPrice (multiply this.products.price this.quantity)}} VNĐ</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  <div class="d-flex justify-content-end fs-4 mb-4">
+    Tổng tiền: <b class="ms-3 text-danger">{{formatPrice total}} VNĐ</b>
+  </div>
+
+  <div class="text-center">
+    <button id="pay-momo-btn" class="btn btn-success btn-lg">Thanh toán bằng Momo</button>
+  </div>
+
+  <!-- QR code hiển thị sau khi tạo payment -->
+  <div id="qr-code-container" class="text-center mt-4" style="display:none;">
+    <h4>Quét QR để thanh toán</h4>
+    <img id="qr-code" src="" alt="QR Code" style="max-width:300px;">
+  </div>
+
+  {{else}}
+  <h3>Giỏ hàng trống</h3>
+  {{/if}}
+</div>
+
+<script src="/js/checkout.js"></script>
