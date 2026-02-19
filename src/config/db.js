@@ -1,18 +1,19 @@
 const { Client } = require('pg');
 
+
 const db = new Client({
-    host: 'aws-1-ap-northeast-2.pooler.supabase.com',
+    host: process.env.DB_HOST,
     port: 5432,
-    user: 'postgres.dfethnntzsnzdldmjkne',
-    password: 'Hoangvu123@',
-    database: 'postgres',
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME,
     ssl: { rejectUnauthorized: false },
 });
 
 async function connect() {
     try {
         await db.connect();
-        console.log(' Kết nối Supabase PostgreSQL thành công (POOLER)');
+        console.log(' Kết nối Supabase PostgreSQL thành công');
     } catch (err) {
         console.error(' Kết nối thất bại:', err);
     }
