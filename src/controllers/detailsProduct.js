@@ -4,7 +4,6 @@ class DetailsProductControllers {
 
         const ANON_KEY = process.env.SUPABASE_ANON_KEY;
 
-
         const response = await fetch(
             `https://dfethnntzsnzdldmjkne.supabase.co/rest/v1/products?id=eq.${id}`,
             {

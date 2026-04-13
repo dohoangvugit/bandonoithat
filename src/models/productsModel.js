@@ -1,83 +1,91 @@
-const db = require('../config/db');
+const supabase = require('../config/supabase');
 
 const ProductModel = {
-    create(data) {
-        const sql = `
-      INSERT INTO products (name, price, image, description, brand, inventory)
-      VALUES ($1, $2, $3, $4, $5, $6)
-    `;
-        const values = [
-            data.name,
-            data.price,
-            data.image,
-            data.description,
-            data.brand,
-            data.inventory,
-        ];
-        return db.query(sql, values);
+    async create(data) {
+        const { data: result, error } = await supabase
+            .from('products')
+            .insert([{
+                name: data.name,
+                price: data.price,
+                image: data.image,
+                description: data.description,
+                brand: data.brand,
+                inventory: data.inventory,
+            }])
+            .select()
+            .single();
+        if (error) throw error;
+        return { rows: [result] };
     },
 
-    findById(id) {
-        const sql = `SELECT * FROM products WHERE id = $1`;
-        return db.query(sql, [id]);
+    async findById(id) {
+        const { data, error } = await supabase
+            .from('products')
+            .select('*')
+            .eq('id', id)
+            .single();
+        if (error && error.code !== 'PGRST116') throw error;
+        return { rows: data ? [data] : [] };
     },
 
-    deleteById(id) {
-        const sql = `DELETE FROM products WHERE id = $1`;
-        return db.query(sql, [id]);
+    async deleteById(id) {
+        const { error } = await supabase
+            .from('products')
+            .delete()
+            .eq('id', id);
+        if (error) throw error;
+        return { rows: [] };
     },
 
-    getAll() {
-        const sql = `
-      SELECT
-        p.id,
-        p.name,
-        p.price,
-        p.image,
-        p.inventory
-      FROM products p
-      ORDER BY p.id ASC
-    `;
-        return db.query(sql);
+    async getAll() {
+        const { data, error } = await supabase
+            .from('products')
+            .select('id, name, price, image, inventory')
+            .order('id', { ascending: true });
+        if (error) throw error;
+        return { rows: data };
     },
 
-    update(id, data) {
-        const sql = `
-    UPDATE products
-    SET
-      name = $1,
-      price = $2,
-      brand = $3,
-      description = $4,
-      inventory = $5,
-      image = $6
-    WHERE id = $7
-  `;
-
-        const values = [
-            data.name,
-            data.price,
-            data.brand,
-            data.description,
-            data.inventory,
-            data.image,
-            id,
-        ];
-
-        return db.query(sql, values);
+    async update(id, data) {
+        const { data: result, error } = await supabase
+            .from('products')
+            .update({
+                name: data.name,
+                price: data.price,
+                brand: data.brand,
+                description: data.description,
+                inventory: data.inventory,
+                image: data.image,
+            })
+            .eq('id', id)
+            .select()
+            .single();
+        if (error) throw error;
+        return { rows: [result] };
     },
-    getTrendingSofas(limit = 10) {
-        const sql = `
-    SELECT
-      p.id, p.name, p.price, p.image
-    FROM products p
-    JOIN product_categories pc ON pc.product_id = p.id
-    JOIN categories c ON c.id = pc.category_id
-    WHERE c.slug = 'sofas'
-    ORDER BY p.inventory DESC
-    LIMIT $1
-  `;
-        return db.query(sql, [limit]);
+
+    async getTrendingSofas(limit = 10) {
+        const { data, error } = await supabase
+            .from('products')
+            .select(`
+                id,
+                name,
+                price,
+                image,
+                product_categories!inner(
+                    categories!inner(slug)
+                )
+            `)
+            .eq('product_categories.categories.slug', 'sofas')
+            .order('inventory', { ascending: false })
+            .limit(limit);
+        if (error) throw error;
+        return { rows: data.map(p => ({
+            id: p.id,
+            name: p.name,
+            price: p.price,
+            image: p.image,
+        })) };
     },
 };
 

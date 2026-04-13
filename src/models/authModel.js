@@ -1,27 +1,27 @@
-const db = require('../config/db');
+const supabase = require('../config/supabase');
 
 const auth = {
-    register: (values) => {
-        const creatUser = `
-            insert into users (username, email, phone, password, role)
-            values ($1, $2, $3, $4, $5)
-        `;
-        return db.query(creatUser, values);
+    async register(values) {
+        const [username, email, phone, password, role] = values;
+        const { data, error } = await supabase
+            .from('users')
+            .insert([{ username, email, phone, password, role }])
+            .select()
+            .single();
+        if (error) throw error;
+        return { rows: [data] }; // Return format compatible with pg
     },
 
-    login: (username, password) => {
-        const findUser = `
-            SELECT *
-            FROM users
-            WHERE username = $1 AND password = $2
-        `;
-        return db.query(findUser, [username, password]);
+    async login(username, password) {
+        const { data, error } = await supabase
+            .from('users')
+            .select('*')
+            .eq('username', username)
+            .eq('password', password)
+            .single();
+        if (error && error.code !== 'PGRST116') throw error;
+        return { rows: data ? [data] : [] }; // Return format compatible with pg
     },
 };
-
-//test
-// auth.login('user1', '123456')
-//   .then(result => console.log(result.rows))
-//   .catch(err => console.error(err))
 
 module.exports = auth;

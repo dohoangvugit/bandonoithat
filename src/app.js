@@ -5,7 +5,7 @@ const path = require('path');
 const { engine } = require('express-handlebars');
 const session = require('express-session');
 
-const db = require('../src/config/db');
+require('./config/supabase'); // Initialize Supabase
 const route = require('./routes');
 
 const app = express();
@@ -40,7 +40,7 @@ app.engine(
             json: (x) => JSON.stringify(x),
             eq: (a, b) => a === b,
             formatPrice: (v) => v.toLocaleString(),
-            multiply: (a,b) => a*b,
+            multiply: (a, b) => a * b,
         },
     }),
 );

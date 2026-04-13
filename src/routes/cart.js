@@ -9,5 +9,4 @@ router.post('/add', requireLogin, cartController.addToCart);
 router.put('/update', requireLogin, cartController.updateCart);
 router.delete('/remove', requireLogin, cartController.removeFromCart);
 
-
 module.exports = router;

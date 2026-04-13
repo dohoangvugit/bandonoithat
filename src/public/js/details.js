@@ -11,7 +11,7 @@ function decrement() {
 }
 
 async function addToCart(productId) {
-    console.log("PRODUCT ID FRONT:", productId);
+    console.log('PRODUCT ID FRONT:', productId);
 
     const res = await fetch('/cart/add', {
         method: 'POST',
@@ -19,12 +19,12 @@ async function addToCart(productId) {
         credentials: 'include',
         body: JSON.stringify({
             productId: productId,
-            quantity: quantity
-        })
+            quantity: quantity,
+        }),
     });
 
     const data = await res.json();
-    console.log("SERVER:", data);
+    console.log('SERVER:', data);
 
     if (res.status === 401) {
         alert('Bạn cần đăng nhập!');

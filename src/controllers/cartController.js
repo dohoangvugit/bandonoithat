@@ -1,7 +1,6 @@
 const cartModel = require('../models/cartModel');
 
 class CartController {
-
     // API GET CART JSON
     async getCart(req, res) {
         try {
@@ -25,9 +24,13 @@ class CartController {
 
             const cart = await cartModel.getOrCreateCart(userId);
 
-            console.log("ADD CART:", cart.id, productId, quantity);
+            console.log('ADD CART:', cart.id, productId, quantity);
 
-            await cartModel.addItem(cart.id, Number(productId), Number(quantity));
+            await cartModel.addItem(
+                cart.id,
+                Number(productId),
+                Number(quantity),
+            );
 
             res.json({ success: true });
         } catch (err) {
@@ -75,15 +78,14 @@ class CartController {
             const items = await cartModel.getCartItems(cart.id);
 
             let total = 0;
-            items.forEach(item => {
+            items.forEach((item) => {
                 total += item.products.price * item.quantity;
             });
 
             res.render('cart', {
                 cart: items,
-                total
+                total,
             });
-
         } catch (err) {
             console.error(err);
             res.status(500).send('Cart error');

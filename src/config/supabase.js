@@ -1,19 +1,13 @@
 const { createClient } = require('@supabase/supabase-js');
+
 const supabase = createClient(
     process.env.SUPABASE_URL,
-    process.env.SUPABASE_ANON_KEY
+    process.env.SUPABASE_ANON_KEY,
 );
 
-async function test() {
-  const { data, error } = await supabase.from('products').select('*').limit(1)
-
-  if (error) {
-    console.log("❌ ERROR:", error)
-  } else {
-    console.log("✅ CONNECT OK:", data)
-  }
+// Log connection status
+if (process.env.NODE_ENV !== 'test') {
+    console.log('✅ Supabase SDK initialized');
 }
-
-test()
 
 module.exports = supabase;

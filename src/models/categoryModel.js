@@ -1,44 +1,55 @@
-const db = require('../config/db');
+const supabase = require('../config/supabase');
 
 const CategoryModel = {
-    getOverview() {
-        const sql = `
-      SELECT
-        c.id,
-        c.name,
-        c.slug,
-        COUNT(pc.product_id) AS total,
-        (
-          SELECT p.image
-          FROM products p
-          JOIN product_categories pc2 ON pc2.product_id = p.id
-          WHERE pc2.category_id = c.id
-          ORDER BY RANDOM()
-          LIMIT 1
-        ) AS image
-      FROM categories c
-      LEFT JOIN product_categories pc ON pc.category_id = c.id
-      GROUP BY c.id
-      ORDER BY c.id
-      LIMIT 5
-    `;
-        return db.query(sql);
+    async getOverview() {
+        // Get categories with product counts using aggregation
+        const { data: categories, error } = await supabase
+            .from('categories')
+            .select(`
+                id,
+                name,
+                slug,
+                product_categories(count)
+            `)
+            .order('id')
+            .limit(5);
+        if (error) throw error;
+
+        // Map the response to match expected format
+        const result = categories.map((cat) => ({
+            id: cat.id,
+            name: cat.name,
+            slug: cat.slug,
+            total: cat.product_categories?.length || 0,
+            image: null, // Image can be fetched separately if needed
+        }));
+
+        return { rows: result };
     },
 
-    getProductsBySlug(slug) {
-        const sql = `
-    SELECT
-      p.id,
-      p.name,
-      p.price,
-      p.image
-    FROM products p
-    JOIN product_categories pc ON pc.product_id = p.id
-    JOIN categories c ON c.id = pc.category_id
-    WHERE c.slug = $1
-    ORDER BY p.id DESC
-  `;
-        return db.query(sql, [slug]);
+    async getProductsBySlug(slug) {
+        // Use RLS or direct query with relationship
+        const { data, error } = await supabase
+            .from('products')
+            .select(`
+                id,
+                name,
+                price,
+                image,
+                product_categories!inner(
+                    categories!inner(slug)
+                )
+            `)
+            .eq('product_categories.categories.slug', slug)
+            .order('id', { ascending: false });
+        if (error) throw error;
+        
+        return { rows: data.map(p => ({
+            id: p.id,
+            name: p.name,
+            price: p.price,
+            image: p.image,
+        })) };
     },
 };
 
