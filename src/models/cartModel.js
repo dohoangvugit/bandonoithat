@@ -37,6 +37,65 @@ const cartModel = {
         if (error) throw error;
         return data;
     },
+
+    async addItem(cartId, productId, quantity) {
+        const { data: existingItem, error: checkError } = await supabase
+            .from('cart_items')
+            .select('*')
+            .eq('cart_id', cartId)
+            .eq('product_id', productId)
+            .single();
+
+        if (checkError && checkError.code !== 'PGRST116') throw checkError;
+
+        if (existingItem) {
+            const { data, error } = await supabase
+                .from('cart_items')
+                .update({ quantity: existingItem.quantity + quantity })
+                .eq('id', existingItem.id)
+                .select()
+                .single();
+            if (error) throw error;
+            return data;
+        } else {
+            const { data, error } = await supabase
+                .from('cart_items')
+                .insert([{ cart_id: cartId, product_id: productId, quantity }])
+                .select()
+                .single();
+            if (error) throw error;
+            return data;
+        }
+    },
+
+    async updateQuantity(cartId, productId, quantity) {
+        const { data, error } = await supabase
+            .from('cart_items')
+            .update({ quantity })
+            .eq('cart_id', cartId)
+            .eq('product_id', productId)
+            .select()
+            .single();
+        if (error) throw error;
+        return data;
+    },
+
+    async removeItem(cartId, productId) {
+        const { error } = await supabase
+            .from('cart_items')
+            .delete()
+            .eq('cart_id', cartId)
+            .eq('product_id', productId);
+        if (error) throw error;
+    },
+
+    async clearCart(cartId) {
+        const { error } = await supabase
+            .from('cart_items')
+            .delete()
+            .eq('cart_id', cartId);
+        if (error) throw error;
+    },
 };
 
 module.exports = cartModel;

@@ -1,0 +1,58 @@
+<div class='container py-5'>
+    <h2>Chi tiết đơn hàng #{{order.id}}</h2>
+    
+    <div class='row mb-4'>
+        <div class='col-md-6'>
+            <h5>Thông tin đơn hàng</h5>
+            <p><strong>ID:</strong> {{order.id}}</p>
+            <p><strong>Khách hàng:</strong> {{userName}}</p>
+            <p><strong>Tổng tiền:</strong> {{formatPrice order.total_amount}} VNĐ</p>
+            <p><strong>Trạng thái:</strong> 
+                <span class='badge {{#eq order.status "pending"}}bg-warning{{else}}{{#eq order.status "completed"}}bg-success{{else}}bg-danger{{/eq}}{{/eq}}'>
+                    {{#eq order.status "pending"}}Đang xử lý{{else}}{{#eq order.status "completed"}}Hoàn thành{{else}}Hủy{{/eq}}{{/eq}}
+                </span>
+            </p>
+            <p><strong>Ngày tạo:</strong> {{formatDate order.created_at}}</p>
+        </div>
+    </div>
+
+    <h5>Sản phẩm</h5>
+    <table class='table'>
+        <thead>
+            <tr>
+                <th>Sản phẩm</th>
+                <th>Số lượng</th>
+                <th>Giá</th>
+                <th>Tổng</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each items}}
+                <tr>
+                    <td>{{product_name}}</td>
+                    <td>{{quantity}}</td>
+                    <td>{{formatPrice price}} VNĐ</td>
+                    <td>{{formatPrice (multiply price quantity)}} VNĐ</td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    <div class='mt-4'>
+        <a href='/admin/orders' class='btn btn-secondary'>Quay lại</a>
+        <button class='btn btn-warning' onclick='changeStatus()'>Cập nhật trạng thái</button>
+    </div>
+</div>
+
+<script>
+    function changeStatus() {
+        const status = prompt('Nhập trạng thái mới (pending/completed/cancelled):');
+        if (status) {
+            fetch('/admin/orders/{{order.id}}/update-status', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ status })
+            }).then(() => location.reload());
+        }
+    }
+</script>

@@ -1,17 +1,40 @@
 <h2>Quản lí đơn hàng</h2>
 
-<button id='btnReloadOrders'>Cập nhật</button>
-
 <table id='ordersTable' class='table'>
     <thead>
         <tr>
             <th>ID</th>
-            <th>Mã đơn</th>
-            <th>Sản phẩm</th>
+            <th>Khách hàng</th>
             <th>Tổng tiền</th>
             <th>Trạng thái</th>
+            <th>Ngày tạo</th>
             <th>Hành động</th>
         </tr>
     </thead>
+    <tbody>
+        {{#each orders}}
+            <tr>
+                <td>{{id}}</td>
+                <td>{{userName}}</td>
+                <td>{{formatPrice total_amount}} VNĐ</td>
+                <td>
+                    <span class='badge {{#eq status "pending"}}bg-warning{{else}}{{#eq status "completed"}}bg-success{{else}}bg-danger{{/eq}}{{/eq}}'>
+                        {{#eq status "pending"}}Đang xử lý{{else}}{{#eq status "completed"}}Hoàn thành{{else}}Hủy{{/eq}}{{/eq}}
+                    </span>
+                </td>
+                <td>{{formatDate created_at}}</td>
+                <td>
+                    <a href='/admin/orders/{{id}}' class='btn btn-sm btn-info'>Xem</a>
+                    <select class='form-select form-select-sm updateStatus' data-id='{{id}}' style='width: auto; display: inline-block;'>
+                        <option value='' disabled selected>Trạng thái</option>
+                        <option value='pending' {{#eq status "pending"}}selected{{/eq}}>Đang xử lý</option>
+                        <option value='completed' {{#eq status "completed"}}selected{{/eq}}>Hoàn thành</option>
+                        <option value='cancelled' {{#eq status "cancelled"}}selected{{/eq}}>Hủy</option>
+                    </select>
+                </td>
+            </tr>
+        {{/each}}
+    </tbody>
 </table>
+
 <script src='/js/admin/orders.js'></script>

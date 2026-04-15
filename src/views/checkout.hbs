@@ -1,111 +1,96 @@
-<html lang='vi'>
-    <head>
-        <meta charset='UTF-8' />
-        <title>Thanh toán</title>
-        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+<div class='container py-5'>
+    <h1 class='display-5 fw-light mb-4'>Thanh toán đơn hàng</h1>
 
-        <style>
-            body {
-                margin: 0;
-                font-family: Arial, sans-serif;
-                background: #f5f5f5;
-            }
-
-            .container {
-                max-width: 600px;
-                margin: 50px auto;
-                background: white;
-                padding: 30px;
-                border-radius: 10px;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            }
-
-            h1 {
-                text-align: center;
-                margin-bottom: 30px;
-            }
-
-            .payment-method {
-                border: 2px solid #eee;
-                padding: 15px;
-                border-radius: 8px;
-                cursor: pointer;
-                margin-bottom: 15px;
-                transition: 0.3s;
-            }
-
-            .payment-method.active {
-                border-color: #d82d8b;
-                background: #fff0f7;
-            }
-
-            .payment-method input {
-                margin-right: 10px;
-            }
-
-            .qr-section {
-                text-align: center;
-                margin-top: 30px;
-                display: none;
-            }
-
-            .qr-section img {
-                width: 250px;
-                height: 250px;
-            }
-
-            .note {
-                margin-top: 15px;
-                color: #555;
-                font-size: 14px;
-            }
-
-            .back-btn {
-                display: block;
-                margin-top: 30px;
-                text-align: center;
-                text-decoration: none;
-                padding: 10px;
-                background: black;
-                color: white;
-                border-radius: 6px;
-            }
-        </style>
-    </head>
-    <body>
-
-        <div class='container'>
-            <h1>Chọn phương thức thanh toán</h1>
-
-            <div class='payment-method active' onclick="selectMethod('momo')">
-                <label>
-                    <input type='radio' name='payment' checked />
-                    Thanh toán qua MoMo
-                </label>
+    {{#if items.length}}
+        <div class='row'>
+            <div class='col-lg-8'>
+                <h5 class='mb-3'>Danh sách sản phẩm</h5>
+                <table class='table align-middle'>
+                    <thead>
+                        <tr>
+                            <th>Ảnh</th>
+                            <th>Sản phẩm</th>
+                            <th>Giá</th>
+                            <th>Số lượng</th>
+                            <th>Tổng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each items}}
+                            <tr>
+                                <td>
+                                    <img src='{{this.products.image}}' width='60' />
+                                </td>
+                                <td>
+                                    <b>{{this.products.name}}</b>
+                                </td>
+                                <td>
+                                    {{this.products.price}} VNĐ
+                                </td>
+                                <td>
+                                    {{this.quantity}}
+                                </td>
+                                <td>
+                                    <b>{{multiply this.products.price this.quantity}} VNĐ</b>
+                                </td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
             </div>
 
-            <div class='qr-section' id='momoQR'>
-                <!-- DÁN QR MOMO CỦA BẠN VÀO ĐÂY -->
-                <img src='/images/momo-qr.png' alt='QR MoMo' />
+            <div class='col-lg-4'>
+                <div id='paymentForm' class='card'>
+                    <div class='card-body'>
+                        <h5 class='card-title'>Tóm tắt đơn hàng</h5>
+                        <hr/>
+                        <div class='d-flex justify-content-between mb-3'>
+                            <span>Tổng tiền:</span>
+                            <strong class='text-danger fs-5'>{{formatPrice total}} VNĐ</strong>
+                        </div>
 
-                <div class='note'>
-                    Quét mã QR bằng ứng dụng MoMo để thanh toán.<br />
-                    Sau khi chuyển khoản xong vui lòng liên hệ xác nhận.
+                        <button class='btn btn-danger w-100 mb-2' onclick='showMomoQR()'>
+                            Thanh toán bằng MoMo
+                        </button>
+
+                        <a href='/cart' class='btn btn-secondary w-100'>Quay lại giỏ hàng</a>
+                    </div>
                 </div>
             </div>
-
-            <a href='/' class='back-btn'>Quay về trang chủ</a>
         </div>
 
-        <script>
-            function selectMethod(method) {
-            document.querySelectorAll('.payment-method').forEach(el => {
-            el.classList.remove('active'); });
-            event.currentTarget.classList.add('active'); if (method === 'momo')
-            { document.getElementById('momoQR').style.display = 'block'; } } //
-            Tự động hiện QR khi load window.onload = function() {
-            document.getElementById('momoQR').style.display = 'block'; }
-        </script>
+        <div id='momoSection' style='display: none; margin-top: 30px;'>
+            <div class='row justify-content-center'>
+                <div class='col-lg-6'>
+                    <div class='card text-center'>
+                        <div class='card-body'>
+                            <h5 class='card-title mb-4'>Quét mã QR MoMo để thanh toán</h5>
+                            <img src='/img/momo.jpg' alt='QR MoMo' class='img-fluid' style='max-width: 350px;' />
+                            <p class='text-muted mt-4'>
+                                Quét mã QR bằng ứng dụng MoMo để thanh toán.<br/>
+                                Số tiền: <strong>{{formatPrice total}} VNĐ</strong>
+                            </p>
+                            <button class='btn btn-secondary mt-3' onclick='hideMomoQR()'>Hủy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{else}}
+        <div class='alert alert-info'>
+            Giỏ hàng của bạn đang trống. <a href='/'>Quay lại mua sắm</a>
+        </div>
+    {{/if}}
+</div>
 
-    </body>
-</html>
+<script>
+    function showMomoQR() {
+        document.getElementById('paymentForm').style.display = 'none';
+        document.getElementById('momoSection').style.display = 'block';
+    }
+
+    function hideMomoQR() {
+        document.getElementById('paymentForm').style.display = 'block';
+        document.getElementById('momoSection').style.display = 'none';
+    }
+</script>

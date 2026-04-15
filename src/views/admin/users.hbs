@@ -6,9 +6,34 @@
             <th>ID</th>
             <th>Tên người dùng</th>
             <th>Email</th>
-            <th>Mật khẩu</th>
+            <th>Số điện thoại</th>
+            <th>Vai trò</th>
             <th>Hành động</th>
         </tr>
     </thead>
+    <tbody>
+        {{#each users}}
+            <tr id='user-{{id}}'>
+                <td>{{id}}</td>
+                <td>{{username}}</td>
+                <td>{{email}}</td>
+                <td>{{phone}}</td>
+                <td>
+                    <span class='badge {{#eq role "admin"}}bg-danger{{else}}bg-primary{{/eq}}'>
+                        {{#eq role "admin"}}Admin{{else}}Khách{{/eq}}
+                    </span>
+                </td>
+                <td>
+                    <select class='form-select form-select-sm changeRole' data-id='{{id}}' style='width: auto; display: inline-block;'>
+                        <option value=''>Đổi vai trò</option>
+                        <option value='user' {{#eq role "user"}}selected{{/eq}}>Khách hàng</option>
+                        <option value='admin' {{#eq role "admin"}}selected{{/eq}}>Admin</option>
+                    </select>
+                    <button class='btn btn-danger btn-sm btnDelete' data-id='{{id}}'>Xóa</button>
+                </td>
+            </tr>
+        {{/each}}
+    </tbody>
 </table>
+
 <script src='/js/admin/users.js'></script>
