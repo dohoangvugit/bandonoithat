@@ -1,30 +1,44 @@
 const supabase = require('../config/supabase');
 
+// Map slug to image file
+const categoryImages = {
+    'new-arrivals': 'couch1.png',
+    'sofas': 'couch2.png',
+    'living-room': 'couch3.png',
+    'on-sale': 'couch4.png',
+    'chairs': 'chair1.png',
+};
+
 const CategoryModel = {
     async getOverview() {
-        // Get categories with product counts using aggregation
-        const { data: categories, error } = await supabase
-            .from('categories')
-            .select(`
-                id,
-                name,
-                slug,
-                product_categories(count)
-            `)
-            .order('id')
-            .limit(5);
-        if (error) throw error;
+        try {
+            // Get categories with product counts using aggregation
+            const { data: categories, error } = await supabase
+                .from('categories')
+                .select(`
+                    id,
+                    name,
+                    slug,
+                    product_categories(count)
+                `)
+                .order('id')
+                .limit(5);
+            if (error) throw error;
 
-        // Map the response to match expected format
-        const result = categories.map((cat) => ({
-            id: cat.id,
-            name: cat.name,
-            slug: cat.slug,
-            total: cat.product_categories?.length || 0,
-            image: null, // Image can be fetched separately if needed
-        }));
+            // Map the response to match expected format
+            const result = categories.map((cat) => ({
+                id: cat.id,
+                name: cat.name,
+                slug: cat.slug,
+                total: cat.product_categories?.length || 0,
+                image: categoryImages[cat.slug] ? `/img/${categoryImages[cat.slug]}` : null,
+            }));
 
-        return { rows: result };
+            return { rows: result };
+        } catch (error) {
+            console.error('❌ Error fetching categories overview:', error.message);
+            return { rows: [] };
+        }
     },
 
     async getProductsBySlug(slug) {
