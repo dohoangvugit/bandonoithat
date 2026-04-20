@@ -1,4 +1,10 @@
 @charset "UTF-8";
+
+/* ===== SMOOTH SCROLL ===== */
+html {
+  scroll-behavior: smooth;
+}
+
 /* ===== CAROUSEL BASE (DÙNG CHUNG) ===== */
 .carousel-base, .hero-carousel, .trending-carousel {
   position: relative;

@@ -5,9 +5,17 @@ const categoryRoute = require('./categoryRoute');
 const productRoutes = require('./detailsProduct');
 const cartRoute = require('./cart');
 const checkoutRoute = require('./checkout');
+const authController = require('../controllers/authController');
 
 function route(app) {
     app.use('/auth', authRoute);
+    app.get('/logout', (req, res, next) => {
+        try {
+            authController.logout(req, res);
+        } catch (err) {
+            next(err);
+        }
+    });
     app.use('/cart', cartRoute);
     app.use('/checkout', checkoutRoute);
     app.use('/admin', adminProductRoute);

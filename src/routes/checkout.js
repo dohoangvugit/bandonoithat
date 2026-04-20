@@ -3,8 +3,9 @@ const express = require('express');
 const router = express.Router();
 const checkoutController = require('../controllers/checkoutController');
 const requireLogin = require('../mdlw/requireLogin');
+const requireLoginPage = require('../mdlw/requireLoginPage');
 
-router.get('/', requireLogin, checkoutController.renderCheckoutPage);
+router.get('/', requireLoginPage, checkoutController.renderCheckoutPage);
 router.post('/momo', requireLogin, checkoutController.createMomoPayment);
 
 module.exports = router;

@@ -50,6 +50,18 @@ class AuthController {
             return res.redirect('/?auth=register&status=fail');
         }
     }
+    logout(req, res) {
+        console.log('🔴 Logout called, current user:', req.session.user);
+        req.session.user = null;
+        req.session.destroy((err) => {
+            if (err) {
+                console.error('Lỗi khi logout:', err);
+            }
+            res.clearCookie('connect.sid', { path: '/' });
+            console.log('✅ Logout successful');
+            return res.redirect('/');
+        });
+    }
 }
 
 module.exports = new AuthController();
