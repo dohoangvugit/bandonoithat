@@ -10,6 +10,20 @@ const categoryImages = {
 };
 
 const CategoryModel = {
+    async getAll() {
+        try {
+            const { data, error } = await supabase
+                .from('categories')
+                .select('id, name, slug')
+                .order('id');
+            if (error) throw error;
+            return { rows: data || [] };
+        } catch (error) {
+            console.error('❌ Error fetching categories:', error.message);
+            return { rows: [] };
+        }
+    },
+
     async getOverview() {
         try {
             // Get categories with product counts using aggregation

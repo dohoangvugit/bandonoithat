@@ -87,6 +87,35 @@ const ProductModel = {
             image: p.image,
         })) };
     },
+
+    async addCategory(productId, categoryId) {
+        const { error } = await supabase
+            .from('product_categories')
+            .insert([{
+                product_id: productId,
+                category_id: categoryId,
+            }]);
+        if (error) throw error;
+        return { success: true };
+    },
+
+    async removeAllCategories(productId) {
+        const { error } = await supabase
+            .from('product_categories')
+            .delete()
+            .eq('product_id', productId);
+        if (error) throw error;
+        return { success: true };
+    },
+
+    async getCategoriesForProduct(productId) {
+        const { data, error } = await supabase
+            .from('product_categories')
+            .select('category_id')
+            .eq('product_id', productId);
+        if (error) throw error;
+        return { rows: data || [] };
+    },
 };
 
 module.exports = ProductModel;

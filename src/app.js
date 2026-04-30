@@ -11,7 +11,12 @@ const route = require('./routes');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.static(path.join(__dirname, 'public')));
+// Serve static files
+const publicDir = path.join(__dirname, '..', 'public');
+const uploadsDir = path.join(__dirname, '..', 'public', 'uploads');
+
+app.use(express.static(publicDir));
+app.use('/uploads', express.static(uploadsDir));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 

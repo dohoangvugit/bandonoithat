@@ -45,6 +45,20 @@
                 />
             </div>
 
+            <!-- CATEGORY -->
+            <div class='mb-3'>
+                <label class='form-label fw-semibold'>Danh mục</label>
+                <select name='categoryId' class='form-control' required>
+                    <option value=''>-- Chọn danh mục --</option>
+                    {{#each categories}}
+                    <option 
+                        value='{{this.id}}'
+                        {{#if this.selected}}selected{{/if}}
+                    >{{this.name}}</option>
+                    {{/each}}
+                </select>
+            </div>
+
             <!-- DESCRIPTION -->
             <div class='mb-3'>
                 <label class='form-label fw-semibold'>Mô tả sản phẩm</label>

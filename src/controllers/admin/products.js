@@ -1,4 +1,5 @@
 const ProductModel = require('../../models/productsModel');
+const CategoryModel = require('../../models/categoryModel');
 const fs = require('fs');
 const path = require('path');
 
@@ -6,7 +7,7 @@ class AdminProductController {
     // POST /admin/products
     async create(req, res) {
         try {
-            const { name, brand, price, description, currentInventory } =
+            const { name, brand, price, description, currentInventory, categoryId } =
                 req.body;
 
             // Kiểm tra file upload
@@ -16,7 +17,7 @@ class AdminProductController {
 
             const imagePath = `/uploads/products/${req.file.filename}`;
 
-            await ProductModel.create({
+            const productData = await ProductModel.create({
                 name,
                 brand,
                 price,
@@ -24,6 +25,11 @@ class AdminProductController {
                 inventory: currentInventory,
                 image: imagePath,
             });
+
+            // Lưu danh mục cho sản phẩm nếu có chọn
+            if (categoryId && productData.rows && productData.rows[0]) {
+                await ProductModel.addCategory(productData.rows[0].id, categoryId);
+            }
 
             res.redirect('/admin/products');
         } catch (err) {
@@ -73,31 +79,56 @@ class AdminProductController {
     }
 
     async showAddForm(req, res) {
-        res.render('admin/add-product', {
-            layout: 'admin',
-        });
+        try {
+            const categories = await CategoryModel.getAll();
+            res.render('admin/add-product', {
+                layout: 'admin',
+                categories: categories.rows,
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send('Error loading form');
+        }
     }
 
     // GET /admin/products/:id/edit
     async showEditForm(req, res) {
-        const { id } = req.params;
+        try {
+            const { id } = req.params;
 
-        const result = await ProductModel.findById(id);
-        if (result.rows.length === 0) {
-            return res.send('Product not found');
+            const result = await ProductModel.findById(id);
+            if (result.rows.length === 0) {
+                return res.send('Product not found');
+            }
+
+            const categories = await CategoryModel.getAll();
+            const productCategories = await ProductModel.getCategoriesForProduct(id);
+            
+            // Lấy category_id được chọn
+            const selectedCategoryId = productCategories.rows?.[0]?.category_id;
+
+            // Thêm thuộc tính selected vào categories
+            const categoriesWithSelected = categories.rows.map(cat => ({
+                ...cat,
+                selected: cat.id === selectedCategoryId,
+            }));
+
+            res.render('admin/edit-product', {
+                layout: 'admin',
+                product: result.rows[0],
+                categories: categoriesWithSelected,
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send('Error loading edit form');
         }
-
-        res.render('admin/edit-product', {
-            layout: 'admin',
-            product: result.rows[0],
-        });
     }
 
     // POST /admin/products/:id
     async update(req, res) {
         try {
             const { id } = req.params;
-            const { name, price, brand, description, currentInventory } = req.body;
+            const { name, price, brand, description, currentInventory, categoryId } = req.body;
 
             const result = await ProductModel.findById(id);
             if (result.rows.length === 0) {
@@ -109,9 +140,6 @@ class AdminProductController {
 
             // nếu upload ảnh mới
             if (req.file) {
-                const fs = require('fs');
-                const path = require('path');
-
                 const oldImagePath = path.join('public', oldProduct.image);
                 if (fs.existsSync(oldImagePath)) {
                     fs.unlinkSync(oldImagePath);
@@ -128,6 +156,14 @@ class AdminProductController {
                 inventory: currentInventory,
                 image: imagePath,
             });
+
+            // Cập nhật danh mục
+            if (categoryId) {
+                // Xóa tất cả danh mục cũ
+                await ProductModel.removeAllCategories(id);
+                // Thêm danh mục mới
+                await ProductModel.addCategory(id, categoryId);
+            }
 
             res.redirect('/admin/products');
         } catch (err) {

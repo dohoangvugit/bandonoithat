@@ -45,7 +45,16 @@
             </div>
 
             <div class='mb-3'>
-                <label class='form-label fw-semibold'>Mô tả sản phẩm</label>
+                <label class='form-label fw-semibold'>Danh mục</label>
+                <select name='categoryId' class='form-control' required>
+                    <option value=''>-- Chọn danh mục --</option>
+                    {{#each categories}}
+                    <option value='{{this.id}}'>{{this.name}}</option>
+                    {{/each}}
+                </select>
+            </div>
+
+            <div class='mb-3'>
                 <textarea
                     name='description'
                     class='form-control'
