@@ -7,6 +7,14 @@ const userController = require('../../controllers/admin/users');
 const upload = require('../../mdlw/upload');
 const requireAdmin = require('../../mdlw/requireAdmin');
 
+// Middleware xử lý lỗi upload
+const handleUploadError = (err, req, res, next) => {
+    if (err) {
+        return res.status(400).send(`Lỗi upload: ${err.message}`);
+    }
+    next();
+};
+
 // Apply admin middleware to all routes
 router.use(requireAdmin);
 
@@ -15,9 +23,9 @@ router.get('/products', productController.index);
 router.get('/products/add', productController.showAddForm);
 router.get('/products/:id/edit', productController.showEditForm);
 
-router.post('/products', upload.single('image'), productController.create);
+router.post('/products', upload.single('image'), handleUploadError, productController.create);
 // submit update
-router.post('/products/:id', upload.single('image'), productController.update);
+router.post('/products/:id', upload.single('image'), handleUploadError, productController.update);
 
 router.delete('/products/:id', productController.delete);
 

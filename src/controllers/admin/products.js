@@ -9,6 +9,11 @@ class AdminProductController {
             const { name, brand, price, description, currentInventory } =
                 req.body;
 
+            // Kiểm tra file upload
+            if (!req.file) {
+                return res.status(400).send('Vui lòng chọn ảnh sản phẩm');
+            }
+
             const imagePath = `/uploads/products/${req.file.filename}`;
 
             await ProductModel.create({
@@ -90,37 +95,45 @@ class AdminProductController {
 
     // POST /admin/products/:id
     async update(req, res) {
-        const { id } = req.params;
-        const { name, price, brand, description, currentInventory } = req.body;
+        try {
+            const { id } = req.params;
+            const { name, price, brand, description, currentInventory } = req.body;
 
-        const result = await ProductModel.findById(id);
-        const oldProduct = result.rows[0];
-
-        let imagePath = oldProduct.image;
-
-        // nếu upload ảnh mới
-        if (req.file) {
-            const fs = require('fs');
-            const path = require('path');
-
-            const oldImagePath = path.join('public', oldProduct.image);
-            if (fs.existsSync(oldImagePath)) {
-                fs.unlinkSync(oldImagePath);
+            const result = await ProductModel.findById(id);
+            if (result.rows.length === 0) {
+                return res.status(404).send('Sản phẩm không tồn tại');
             }
 
-            imagePath = `/uploads/products/${req.file.filename}`;
+            const oldProduct = result.rows[0];
+            let imagePath = oldProduct.image;
+
+            // nếu upload ảnh mới
+            if (req.file) {
+                const fs = require('fs');
+                const path = require('path');
+
+                const oldImagePath = path.join('public', oldProduct.image);
+                if (fs.existsSync(oldImagePath)) {
+                    fs.unlinkSync(oldImagePath);
+                }
+
+                imagePath = `/uploads/products/${req.file.filename}`;
+            }
+
+            await ProductModel.update(id, {
+                name,
+                price,
+                brand,
+                description,
+                inventory: currentInventory,
+                image: imagePath,
+            });
+
+            res.redirect('/admin/products');
+        } catch (err) {
+            console.error(err);
+            res.status(500).send('Update product failed');
         }
-
-        await ProductModel.update(id, {
-            name,
-            price,
-            brand,
-            description,
-            inventory: currentInventory,
-            image: imagePath,
-        });
-
-        res.redirect('/admin/products');
     }
 }
 
