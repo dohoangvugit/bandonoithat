@@ -1,0 +1,22 @@
+<section class="container my-5">
+
+  <h2 class="mb-4">
+    Kết quả tìm kiếm cho: <strong>"{{keyword}}"</strong>
+  </h2>
+
+  {{#if products.length}}
+    <div class="row g-4">
+      {{#each products}}
+        <div class="col-lg-3 col-md-4 col-sm-6">
+          {{> product/card}}
+        </div>
+      {{/each}}
+    </div>
+  {{else}}
+    <div class="alert alert-info" role="alert">
+      <i class="fa-solid fa-circle-info"></i>
+      Không tìm thấy sản phẩm nào phù hợp với từ khóa "<strong>{{keyword}}</strong>". Vui lòng thử lại với từ khóa khác.
+    </div>
+  {{/if}}
+
+</section>

@@ -116,6 +116,16 @@ const ProductModel = {
         if (error) throw error;
         return { rows: data || [] };
     },
+
+    async search(keyword) {
+        const { data, error } = await supabase
+            .from('products')
+            .select('id, name, price, image, inventory')
+            .or(`name.ilike.%${keyword}%,description.ilike.%${keyword}%`)
+            .order('id', { ascending: true });
+        if (error) throw error;
+        return { rows: data };
+    },
 };
 
 module.exports = ProductModel;

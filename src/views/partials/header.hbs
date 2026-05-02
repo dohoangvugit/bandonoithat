@@ -6,7 +6,7 @@
         </a>
 
         <div class='collapse navbar-collapse'>
-            <form class='d-flex align-items-center mx-auto' role='search'>
+            <form class='d-flex align-items-center mx-auto' role='search' method='GET' action='/search'>
                 <div class='input-group me-3'>
 
                     <input
@@ -14,6 +14,8 @@
                         class='form-control'
                         placeholder='Tìm kiếm sản phẩm...'
                         aria-label='Search'
+                        name='q'
+                        required
                     />
 
                     <button class='btn btn-dark' type='submit'>

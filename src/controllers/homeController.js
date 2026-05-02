@@ -33,6 +33,27 @@ class HomeController {
             });
         }
     }
+
+    async search(req, res) {
+        try {
+            const { q } = req.query;
+            if (!q || q.trim() === '') {
+                return res.redirect('/');
+            }
+
+            const result = await ProductModel.search(q);
+            res.render('search', {
+                keyword: q,
+                products: result.rows,
+            });
+        } catch (error) {
+            console.error('❌ Error in search:', error.message);
+            res.render('search', {
+                keyword: '',
+                products: [],
+            });
+        }
+    }
 }
 
 module.exports = new HomeController();
